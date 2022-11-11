@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class InventoryAddon {
 
-    final MiniMessage mm = MiniMessage.miniMessage();
+    public final MiniMessage mm = MiniMessage.miniMessage();
 
     public String permission() {
         return null;

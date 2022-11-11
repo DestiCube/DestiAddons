@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class ListenerAddon implements Listener {
 
-    final MiniMessage mm = MiniMessage.miniMessage();
+    public final MiniMessage mm = MiniMessage.miniMessage();
 
     public void register(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);

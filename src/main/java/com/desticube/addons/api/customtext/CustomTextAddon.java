@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class CustomTextAddon {
 
-    final MiniMessage mm = MiniMessage.miniMessage();
+    public final MiniMessage mm = MiniMessage.miniMessage();
 
     @NotNull
     public abstract String command();
