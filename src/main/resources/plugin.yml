@@ -1,0 +1,5 @@
+name: ${name}
+main: ${group}.AddonsMain
+version: ${version}
+description: ${description}
+api-version: 1.19

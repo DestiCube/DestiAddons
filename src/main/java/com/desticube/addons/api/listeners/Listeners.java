@@ -26,8 +26,7 @@ public class Listeners implements AddonManager {
         expansions.stream().peek(ex -> ex.register(main));
     }
 
-    public CompletableFuture<AddonsMain> loadFiles(AddonsMain main) {
-        return CompletableFuture.supplyAsync(() -> {
+    public void loadFiles(AddonsMain main) {
             File folder = new File(main.getDataFolder() + separator + "addons" + separator + "listeners");
             if (!folder.exists()) folder.mkdirs();
             if (folder.isDirectory()) {
@@ -48,7 +47,5 @@ public class Listeners implements AddonManager {
                     }
 
                 }
-            return main;
-        });
     }
 }

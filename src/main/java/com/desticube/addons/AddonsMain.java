@@ -27,9 +27,12 @@ public class AddonsMain extends JavaPlugin {
     @Override
     public void onEnable() {
         PLUGIN = this;
-        invs.loadFiles(this).thenAccept(invs::register);
-        customText.loadFiles(this).thenAccept(customText::register);
-        listeners.loadFiles(this).thenAccept(listeners::register);
+        invs.loadFiles(this);
+        invs.register(this);
+        customText.loadFiles(this);
+        customText.register(this);
+        listeners.loadFiles(this);
+        listeners.register(this);
     }
 
 

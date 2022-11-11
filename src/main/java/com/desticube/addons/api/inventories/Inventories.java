@@ -33,7 +33,13 @@ public class Inventories implements AddonManager {
             AbstractDuckCommand command = new AbstractDuckCommand() {
                 @Override
                 public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-                    if (sender instanceof Player p) expansions.get(c).openInventory(p);
+                    InventoryAddon addon = expansions.get(c);
+                    if (sender instanceof Player p) {
+                        if (addon.permission() == null || addon.permission().equalsIgnoreCase("")
+                                || sender.hasPermission(addon.permission())) {
+                            expansions.get(c).openInventory(p);
+                        }
+                    }
                     return false;
                 }
             };
@@ -41,8 +47,7 @@ public class Inventories implements AddonManager {
         });
     }
 
-    public CompletableFuture<AddonsMain> loadFiles(AddonsMain main) {
-        return CompletableFuture.supplyAsync(() -> {
+    public void loadFiles(AddonsMain main) {
             File folder = new File(main.getDataFolder() + separator + "addons" + separator + "inventories");
             if (!folder.exists()) folder.mkdirs();
             if (folder.isDirectory()) {
@@ -64,7 +69,5 @@ public class Inventories implements AddonManager {
 
                 }
             }
-            return main;
-        });
     }
 }

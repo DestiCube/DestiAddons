@@ -2,10 +2,12 @@ package com.desticube.addons.api.customtext;
 
 import com.desticube.addons.AddonsMain;
 import com.desticube.addons.api.AddonManager;
+import com.desticube.addons.api.inventories.InventoryAddon;
 import com.gamerduck.commons.commands.AbstractDuckCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -24,16 +26,21 @@ public class CustomTexts implements AddonManager {
             AbstractDuckCommand command = new AbstractDuckCommand() {
                 @Override
                 public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-                    expansions.get(c).sendMessage(sender);
+                    CustomTextAddon addon = expansions.get(c);
+                    if (sender instanceof Player p) {
+                        if (addon.permission() == null || addon.permission().equalsIgnoreCase("")
+                                || sender.hasPermission(addon.permission())) {
+                            addon.sendMessage(p);
+                        }
+                    }
                     return false;
                 }
             };
-            command.register(c, "/" + c, "Custom Text", "", null, "");
+            command.register(c, "/" + c, "Custom Text", "", null, "destiaddons");
         });
     }
 
-    public CompletableFuture<AddonsMain> loadFiles(AddonsMain main) {
-        return CompletableFuture.supplyAsync(() -> {
+    public void loadFiles(AddonsMain main) {
             File folder = new File(main.getDataFolder() + separator + "addons" + separator + "customtext");
             if (!folder.exists()) folder.mkdirs();
             if (folder.isDirectory()) {
@@ -55,8 +62,6 @@ public class CustomTexts implements AddonManager {
 
                 }
             }
-            return main;
-        });
     }
 
 }

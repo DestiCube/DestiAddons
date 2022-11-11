@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 
 public interface AddonManager {
 
-    public CompletableFuture<AddonsMain> loadFiles(AddonsMain main);
+    public void loadFiles(AddonsMain main);
 
     public void register(AddonsMain main);
 }
